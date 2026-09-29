@@ -12,7 +12,7 @@ from datetime import datetime
 mimetypes.init()
 mimetypes.add_type("image/webp", ".webp")
 
-PORT = 3000
+PORT = int(os.environ.get("PORT", 3000))
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 
 # Configuration for SMTP (Optional: fill in to send real emails via Gmail/Outlook/SendGrid)
@@ -30,16 +30,25 @@ def load_smtp_config():
         "smtp_username": "",
         "smtp_password": ""
     }
-    if not os.path.exists(SMTP_CONFIG_FILE):
-        with open(SMTP_CONFIG_FILE, "w") as f:
-            json.dump(default_config, f, indent=2)
-        return default_config
-    try:
-        with open(SMTP_CONFIG_FILE, "r") as f:
-            return json.load(f)
-    except Exception as e:
-        print(f"Error loading SMTP config: {e}")
-        return default_config
+    config = default_config
+    if os.path.exists(SMTP_CONFIG_FILE):
+        try:
+            with open(SMTP_CONFIG_FILE, "r") as f:
+                config = json.load(f)
+        except Exception as e:
+            print(f"Error loading SMTP config: {e}")
+            config = default_config
+
+    # Allow Environment Variable overrides (for Render / Cloud hosting)
+    if os.environ.get("SMTP_PASSWORD"):
+        config["smtp_password"] = os.environ.get("SMTP_PASSWORD")
+        config["enabled"] = True
+    if os.environ.get("SMTP_USERNAME"):
+        config["smtp_username"] = os.environ.get("SMTP_USERNAME")
+    if os.environ.get("SENDER_EMAIL"):
+        config["sender_email"] = os.environ.get("SENDER_EMAIL")
+
+    return config
 
 def generate_booking_email_html(customer_name, customer_email, model_name, booking_date, phone, booking_id):
     model_display = {
