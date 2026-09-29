@@ -1,0 +1,2 @@
+# BMW M Motorsport Web Application
+# All required modules (http.server, socketserver, smtplib, json, etc.) are built into Python 3 standard library.
