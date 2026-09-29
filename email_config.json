@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "smtp_server": "smtp.gmail.com",
+  "smtp_port": 587,
+  "use_tls": true,
+  "sender_email": "ayushgantalu5@gmail.com",
+  "sender_name": "BMW M Bavaria Performance",
+  "smtp_username": "ayushgantalu5@gmail.com",
+  "smtp_password": "xnpc cjol rpsu lufs",
+  "note": "Configured with Google App Password for live automatic email delivery."
+}

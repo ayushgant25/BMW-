@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMW M | The Ultimate Driving Machine</title>
+  <meta name="description" content="Experience the pinnacle of automotive engineering, high performance, and electric power. Explore the BMW M lineup and our interactive exploded engineering showcase.">
+  
+  <!-- Google Fonts: Barlow Condensed (Headings) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="m-default">
+
+  <!-- ========================================================
+       PRELOADER / INTRO SCREEN
+       ======================================================== -->
+  <div id="preloader" class="preloader">
+    <div class="preloader-stripes">
+      <span class="m-stripe light-blue"></span>
+      <span class="m-stripe dark-blue"></span>
+      <span class="m-stripe red"></span>
+    </div>
+    <div class="preloader-content">
+      <div class="preloader-logo">
+        <svg class="bmw-roundel" viewBox="0 0 100 100" width="70" height="70">
+          <circle cx="50" cy="50" r="48" fill="#0A0A0A" stroke="#FFFFFF" stroke-width="3"/>
+          <circle cx="50" cy="50" r="32" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+          <path d="M50 18 A32 32 0 0 1 82 50 L50 50 Z" fill="#0066B1"/>
+          <path d="M82 50 A32 32 0 0 1 50 82 L50 50 Z" fill="#FFFFFF"/>
+          <path d="M50 82 A32 32 0 0 1 18 50 L50 50 Z" fill="#0066B1"/>
+          <path d="M18 50 A32 32 0 0 1 50 18 L50 50 Z" fill="#FFFFFF"/>
+          <text x="50" y="14" font-size="9" font-family="'Barlow Condensed', sans-serif" font-weight="900" fill="#FFFFFF" text-anchor="middle">B M W</text>
+        </svg>
+      </div>
+      <div class="preloader-counter-wrap">
+        <span class="preloader-text">PRECISION ASSEMBLY</span>
+        <span id="preloader-percent" class="preloader-percent">000%</span>
+      </div>
+      <div class="preloader-bar-bg">
+        <div id="preloader-progress" class="preloader-bar-fill"></div>
+      </div>
+      <div class="preloader-status" id="preloader-status">INITIALIZING TELEMETRY...</div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       CUSTOM CURSOR & SPEED TRAIL
+       ======================================================== -->
+  <div id="cursor-dot" class="cursor-dot"></div>
+  <div id="cursor-ring" class="cursor-ring">
+    <span id="cursor-label" class="cursor-label"></span>
+  </div>
+  <canvas id="trail-canvas" class="trail-canvas"></canvas>
+
+  <!-- M-STRIPE SCREEN WIPE (EASTER EGG & TRANSITIONS) -->
+  <div id="m-wipe-overlay" class="m-wipe-overlay">
+    <div class="wipe-band band-1"></div>
+    <div class="wipe-band band-2"></div>
+    <div class="wipe-band band-3"></div>
+  </div>
+
+  <!-- SCREEN SHAKE WRAPPER -->
+  <div id="app-root">
+
+    <!-- ========================================================
+         NAVIGATION BAR
+         ======================================================== -->
+    <header id="navbar" class="navbar">
+      <div class="nav-container">
+        <!-- Logo -->
+        <a href="#hero" class="nav-brand" data-cursor="BMW">
+          <svg class="bmw-roundel nav-roundel" viewBox="0 0 100 100" width="42" height="42">
+            <circle cx="50" cy="50" r="48" fill="#0A0A0A" stroke="#FFFFFF" stroke-width="2.5"/>
+            <circle cx="50" cy="50" r="32" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+            <path d="M50 18 A32 32 0 0 1 82 50 L50 50 Z" fill="#0066B1"/>
+            <path d="M82 50 A32 32 0 0 1 50 82 L50 50 Z" fill="#FFFFFF"/>
+            <path d="M50 82 A32 32 0 0 1 18 50 L50 50 Z" fill="#0066B1"/>
+            <path d="M18 50 A32 32 0 0 1 50 18 L50 50 Z" fill="#FFFFFF"/>
+            <text x="50" y="14" font-size="8.5" font-family="'Barlow Condensed', sans-serif" font-weight="900" fill="#FFFFFF" text-anchor="middle">BMW</text>
+          </svg>
+          <div class="nav-brand-text">
+            <span class="brand-title">BAVARIA MOTOR</span>
+            <span class="m-badge">///M POWER</span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <nav class="nav-menu">
+          <a href="#engineered" class="nav-link" data-cursor="VIEW">
+            <span class="link-char-wrapper">
+              <span class="primary-text">ENGINEERING</span>
+              <span class="hover-text">ENGINEERING</span>
+            </span>
+          </a>
+          <a href="#models" class="nav-link" data-cursor="VIEW">
+            <span class="link-char-wrapper">
+              <span class="primary-text">MODELS</span>
+              <span class="hover-text">MODELS</span>
+            </span>
+          </a>
+          <a href="#m-performance" class="nav-link" data-cursor="VIEW">
+            <span class="link-char-wrapper">
+              <span class="primary-text">M PERFORMANCE</span>
+              <span class="hover-text">M PERFORMANCE</span>
+            </span>
+          </a>
+          <a href="#electric" class="nav-link" data-cursor="VIEW">
+            <span class="link-char-wrapper">
+              <span class="primary-text">BMW i</span>
+              <span class="hover-text">BMW i</span>
+            </span>
+          </a>
+          <a href="#configurator" class="nav-link" data-cursor="VIEW">
+            <span class="link-char-wrapper">
+              <span class="primary-text">STUDIO</span>
+              <span class="hover-text">STUDIO</span>
+            </span>
+          </a>
+        </nav>
+
+        <!-- Right Quick Actions -->
+        <div class="nav-actions">
+          <!-- Sport Mode Toggle -->
+          <button id="sport-toggle" class="sport-btn" title="Toggle Sport Mode (Aggressive Red)" data-cursor="SPORT">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span class="sport-label">SPORT MODE</span>
+          </button>
+
+          <!-- Audio Engine Sound Toggle -->
+          <button id="audio-toggle" class="icon-btn audio-btn" title="Engine Audio Mute/Unmute" data-cursor="SOUND">
+            <i class="fa-solid fa-volume-xmark" id="audio-icon"></i>
+          </button>
+
+          <!-- Test Drive CTA -->
+          <a href="#test-drive" class="btn btn-primary nav-cta magnetic-btn" data-cursor="DRIVE">
+            <span class="btn-text">BOOK TEST DRIVE</span>
+            <i class="fa-solid fa-arrow-right-long btn-icon"></i>
+          </a>
+
+          <!-- Hamburger for Mobile -->
+          <button id="hamburger-btn" class="hamburger-btn" aria-label="Toggle menu" data-cursor="MENU">
+            <span class="ham-line"></span>
+            <span class="ham-line"></span>
+            <span class="ham-line"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Fullscreen Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+      <div class="mobile-menu-inner">
+        <div class="m-stripes-diagonal"></div>
+        <nav class="mobile-nav-links">
+          <a href="#hero" class="mobile-link" data-text="01">OVERVIEW</a>
+          <a href="#engineered" class="mobile-link" data-text="02">ENGINEERED APART</a>
+          <a href="#models" class="mobile-link" data-text="03">VEHICLE SHOWCASE</a>
+          <a href="#gallery" class="mobile-link" data-text="04">M SERIES TRACK</a>
+          <a href="#m-performance" class="mobile-link" data-text="05">M MOTORSPORT</a>
+          <a href="#electric" class="mobile-link" data-text="06">BMW i ELECTRIFIED</a>
+          <a href="#configurator" class="mobile-link" data-text="07">CONFIGURATOR</a>
+          <a href="#test-drive" class="mobile-link" data-text="08">BOOK TEST DRIVE</a>
+        </nav>
+        <div class="mobile-footer-info">
+          <span>BAVARIA PERFORMANCE RETAIL</span>
+          <span>PRESS 'M' FOR MOTORSPORT FLASH</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         MAIN CONTENT
+         ======================================================== -->
+    <main>
+
+      <!-- ======================================================
+           HERO & SCROLL-CONTROLLED EXPLODED VIDEO / CANVAS SECTION
+           ====================================================== -->
+      <section id="hero-scrub-section" class="hero-scrub-section">
+        
+        <!-- Pinned Sticky Container -->
+        <div class="scrub-sticky-container" id="scrub-sticky">
+          
+          <!-- Background Visual Target (Canvas or Video) -->
+          <div class="media-container" id="media-container">
+            <!-- Canvas Sequence Mode (Default & Buttery 60fps) -->
+            <canvas id="scrub-canvas" class="scrub-canvas"></canvas>
+            
+            <!-- Video Fallback Mode (Configurable via CONFIG.USE_CANVAS) -->
+            <video id="scrub-video" class="scrub-video" playsinline muted preload="auto">
+              <source src="Car_components_hovering_in_mid-air_20260929195029.mp4" type="video/mp4">
+            </video>
+
+            <!-- Dark Cinematic Vignette & Atmospheric Gradients -->
+            <div class="cinema-overlay"></div>
+            <div class="vignette-overlay"></div>
+            <div class="carbon-grid-overlay"></div>
+            
+            <!-- Particle Sparks Canvas -->
+            <canvas id="sparks-canvas" class="sparks-canvas"></canvas>
+          </div>
+
+          <!-- Interactive Hoverable Hotspots (Appear at specific component moments) -->
+          <div class="hotspots-layer" id="hotspots-layer">
+            <div class="hotspot" id="hotspot-grille" style="top: 48%; left: 52%;" data-cursor="SPEC">
+              <span class="hotspot-pulse"></span>
+              <span class="hotspot-dot"></span>
+              <div class="hotspot-card">
+                <span class="hotspot-tag">AERODYNAMICS</span>
+                <h4>Illuminated Iconic Glow Grille</h4>
+                <p>Active shutter air intake with precision fiber-optic laser contour illumination.</p>
+              </div>
+            </div>
+
+            <div class="hotspot" id="hotspot-battery" style="top: 68%; left: 45%;" data-cursor="SPEC">
+              <span class="hotspot-pulse"></span>
+              <span class="hotspot-dot"></span>
+              <div class="hotspot-card">
+                <span class="hotspot-tag">POWERTRAIN</span>
+                <h4>800V High-Density Cell Pack</h4>
+                <p>105 kWh structural battery tray with liquid immersion cooling and 250 kW ultra-charging.</p>
+              </div>
+            </div>
+
+            <div class="hotspot" id="hotspot-brakes" style="top: 56%; left: 34%;" data-cursor="SPEC">
+              <span class="hotspot-pulse"></span>
+              <span class="hotspot-dot"></span>
+              <div class="hotspot-card">
+                <span class="hotspot-tag">CHASSIS</span>
+                <h4>M Carbon-Ceramic Brakes</h4>
+                <p>6-piston monobloc calipers with 420mm drilled floating rotors.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating Story Overlays (Mapped to scroll progress) -->
+          <div class="story-overlay" id="story-overlay">
+            
+            <!-- Story Step 1: Initial Hook -->
+            <div class="story-step active" id="step-1">
+              <div class="story-badge">
+                <span class="m-stripe-icon"></span>
+                <span>BAVARIAN MOTOR WORKS</span>
+              </div>
+              <h1 class="hero-title glitch-text">
+                THE ULTIMATE<br>
+                <span class="text-stroke">DRIVING</span> MACHINE
+              </h1>
+              <p class="hero-desc">
+                Witness what lies beneath pure adrenaline. Scroll down to deconstruct high performance piece by piece.
+              </p>
+              <div class="hero-metrics">
+                <div class="metric-item">
+                  <span class="metric-val" data-counter="617">617</span><span class="metric-unit">HP</span>
+                  <span class="metric-lbl">TwinPower / Dual E-Drive</span>
+                </div>
+                <div class="metric-divider"></div>
+                <div class="metric-item">
+                  <span class="metric-val" data-counter="3.1">3.1</span><span class="metric-unit">s</span>
+                  <span class="metric-lbl">0 – 100 KM/H</span>
+                </div>
+                <div class="metric-divider"></div>
+                <div class="metric-item">
+                  <span class="metric-val" data-counter="750">750</span><span class="metric-unit">NM</span>
+                  <span class="metric-lbl">Peak Torque</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Story Step 2: Monocoque & Aero -->
+            <div class="story-step" id="step-2">
+              <div class="story-badge">
+                <span class="m-stripe-icon"></span>
+                <span>STRUCTURAL GENETICS</span>
+              </div>
+              <h2 class="story-title">
+                CARBON CORE<br>
+                <span class="text-accent">MONOCOQUE</span>
+              </h2>
+              <p class="story-desc">
+                Ultra-lightweight carbon fiber reinforced polymer cage lowers the center of gravity while maximizing torsional rigidity.
+              </p>
+              <div class="story-stats-badge">
+                <span class="stat-highlight">48% STRONGER</span>
+                <span class="stat-sub">Zero-compromise safety architecture</span>
+              </div>
+            </div>
+
+            <!-- Story Step 3: Propulsion & Powertrain -->
+            <div class="story-step" id="step-3">
+              <div class="story-badge">
+                <span class="m-stripe-icon"></span>
+                <span>800V NEXT-GEN PROPULSION</span>
+              </div>
+              <h2 class="story-title">
+                503 HP DUAL MOTOR<br>
+                <span class="text-stroke">M ELECTRIC E-DRIVE</span>
+              </h2>
+              <p class="story-desc">
+                Permanently excited synchronous motors paired with variable mechanical differential lock. Instant torque delivered with surgical precision.
+              </p>
+              <div class="story-stats-badge">
+                <span class="stat-highlight">0.05 SEC</span>
+                <span class="stat-sub">Torque vectoring response time</span>
+              </div>
+            </div>
+
+            <!-- Story Step 4: Suspension & Kinematics -->
+            <div class="story-step" id="step-4">
+              <div class="story-badge">
+                <span class="m-stripe-icon"></span>
+                <span>CHASSIS DYNAMICS</span>
+              </div>
+              <h2 class="story-title">
+                ADAPTIVE M<br>
+                <span class="text-accent">AIR SUSPENSION</span>
+              </h2>
+              <p class="story-desc">
+                5-link rear kinematics, continuously variable electronic damping, and active roll stabilization ensure track-level cornering grip.
+              </p>
+              <div class="story-stats-badge">
+                <span class="stat-highlight">M COMPOUND</span>
+                <span class="stat-sub">Carbon-ceramic 6-piston brake array</span>
+              </div>
+            </div>
+
+            <!-- Story Step 5: Fully Exploded Grand Finale -->
+            <div class="story-step" id="step-5">
+              <div class="story-badge">
+                <span class="m-stripe-icon"></span>
+                <span>TOTAL HARMONY</span>
+              </div>
+              <h2 class="story-title">
+                ENGINEERED<br>
+                <span class="text-stroke">TO DOMINATE</span>
+              </h2>
+              <p class="story-desc">
+                Every bolt, panel, and rotor tuned on the Nürburgring Nordschleife. Ready to conquer any asphalt.
+              </p>
+              <div class="step-cta-row">
+                <a href="#models" class="btn btn-primary magnetic-btn" data-cursor="EXPLORE">
+                  <span>DISCOVER THE FLEET</span>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Telemetry HUD Bar -->
+          <div class="telemetry-hud">
+            <div class="hud-left">
+              <div class="hud-label">FRAME TELEMETRY</div>
+              <div class="hud-val" id="hud-frame-val">FRAME: 001 / 192</div>
+            </div>
+            
+            <div class="hud-center">
+              <div class="scroll-prompt" id="scroll-prompt">
+                <span class="scroll-prompt-text">SCROLL TO DECONSTRUCT</span>
+                <div class="mouse-icon">
+                  <div class="wheel-dot"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hud-right">
+              <div class="hud-label">SCROLL DISASSEMBLY</div>
+              <div class="hud-progress-wrap">
+                <div class="hud-progress-fill" id="hud-progress-fill"></div>
+              </div>
+              <span id="hud-percent">0%</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================
+           TICKER / MARQUEE (DYNAMIC SCROLL VELOCITY ACCELERATION)
+           ====================================================== -->
+      <section class="marquee-section" aria-hidden="true">
+        <div class="marquee-track" id="marquee-track">
+          <div class="marquee-content">
+            <span class="mq-item">THE ULTIMATE DRIVING MACHINE</span>
+            <span class="mq-bullet">///</span>
+            <span class="mq-item">BMW M POWER</span>
+            <span class="mq-bullet">///</span>
+            <span class="mq-item">SHEER DRIVING PLEASURE</span>
+            <span class="mq-bullet">///</span>
+            <span class="mq-item">BORN ON THE TRACK</span>
+            <span class="mq-bullet">///</span>
+            <span class="mq-item">ELECTRIC ADRENALINE</span>
+            <span class="mq-bullet">///</span>
+          </div>
+          <div class="marquee-content" aria-hidden="true">
+            <span class="mq-item">THE ULTIMATE DRIVING MACHINE</span>
+            <span class="mq-bullet">///</span>
+            <span class="mq-item">BMW M POWER</span>
+            <span class="mq-bullet">///</span>
+            <span class="mq-item">SHEER DRIVING PLEASURE</span>
+            <span class="mq-bullet">///</span>
+            <span class="mq-item">BORN ON THE TRACK</span>
+            <span class="mq-bullet">///</span>
+            <span class="mq-item">ELECTRIC ADRENALINE</span>
+            <span class="mq-bullet">///</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================
+           SECTION 2: ENGINEERED APART (TECH MATRIX & SPECS)
+           ====================================================== -->
+      <section id="engineered" class="section engineered-section">
+        <div class="angled-header-divider"></div>
+        <div class="site-container">
+          
+          <div class="section-head text-center">
+            <div class="sub-badge">PRECISION DYNAMICS</div>
+            <h2 class="section-title split-text">
+              ENGINEERED <span class="text-accent">APART</span>
+            </h2>
+            <p class="section-subtitle">
+              Deconstructed into four pillars of relentless performance and German racing pedigree.
+            </p>
+          </div>
+
+          <div class="engineering-grid">
+            <!-- Tech Card 1 -->
+            <div class="tech-card card-tilt" data-cursor="CHASSIS">
+              <div class="tech-card-glow"></div>
+              <div class="tech-card-num">01</div>
+              <div class="tech-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <h3 class="tech-title">Carbon Monocoque</h3>
+              <p class="tech-desc">Motorsport-derived ultra-rigid tub with localized weave reinforcements for zero flex under 1.8G lateral loads.</p>
+              <div class="tech-meta">
+                <span>WEIGHT SAVINGS</span>
+                <strong>-120 KG</strong>
+              </div>
+            </div>
+
+            <!-- Tech Card 2 -->
+            <div class="tech-card card-tilt" data-cursor="MOTOR">
+              <div class="tech-card-glow"></div>
+              <div class="tech-card-num">02</div>
+              <div class="tech-icon"><i class="fa-solid fa-bolt-lightning"></i></div>
+              <h3 class="tech-title">Silicon-Carbide Inverter</h3>
+              <p class="tech-desc">Ultra-fast microsecond power switching with 98.4% energy efficiency and continuous boost thermal management.</p>
+              <div class="tech-meta">
+                <span>VOLTAGE MATRIX</span>
+                <strong>800V ARCHITECTURE</strong>
+              </div>
+            </div>
+
+            <!-- Tech Card 3 -->
+            <div class="tech-card card-tilt" data-cursor="BRAKES">
+              <div class="tech-card-glow"></div>
+              <div class="tech-card-num">03</div>
+              <div class="tech-icon"><i class="fa-solid fa-circle-stop"></i></div>
+              <h3 class="tech-title">M Carbon-Ceramics</h3>
+              <p class="tech-desc">Fade-free thermal threshold up to 1,000°C with custom gold 6-piston fixed calipers and compound wear sensors.</p>
+              <div class="tech-meta">
+                <span>100-0 KM/H STOP</span>
+                <strong>31.2 METERS</strong>
+              </div>
+            </div>
+
+            <!-- Tech Card 4 -->
+            <div class="tech-card card-tilt" data-cursor="AERO">
+              <div class="tech-card-glow"></div>
+              <div class="tech-card-num">04</div>
+              <div class="tech-icon"><i class="fa-solid fa-wind"></i></div>
+              <h3 class="tech-title">Active Aerodynamics</h3>
+              <p class="tech-desc">Integrated air curtains, underbody venture tunnels, and adaptive rear diffuser generating positive downforce at speed.</p>
+              <div class="tech-meta">
+                <span>DRAG COEFFICIENT</span>
+                <strong>0.24 Cd</strong>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================
+           SECTION 3: MODELS SHOWCASE (GSAP FLIP CATEGORY TABS)
+           ====================================================== -->
+      <section id="models" class="section models-section">
+        <div class="site-container">
+          
+          <div class="section-head-row">
+            <div>
+              <div class="sub-badge">THE SHOWROOM</div>
+              <h2 class="section-title split-text">
+                THE <span class="text-accent">FLEET</span>
+              </h2>
+            </div>
+            
+            <!-- Category Tabs with Sliding Pill -->
+            <div class="category-tabs-container" id="category-tabs">
+              <div class="tabs-pill" id="tabs-pill"></div>
+              <button class="tab-btn active" data-filter="all" data-cursor="SELECT">ALL MODELS</button>
+              <button class="tab-btn" data-filter="m-power" data-cursor="SELECT">M POWER</button>
+              <button class="tab-btn" data-filter="electric" data-cursor="SELECT">BMW i (EV)</button>
+              <button class="tab-btn" data-filter="sedans" data-cursor="SELECT">SEDANS & COUPES</button>
+              <button class="tab-btn" data-filter="suv" data-cursor="SELECT">SAV / SUV</button>
+            </div>
+          </div>
+
+          <!-- Cards Grid (Re-shuffled smoothly with GSAP Flip) -->
+          <div class="models-grid" id="models-grid">
+
+            <!-- Card 1: BMW M3 Competition -->
+            <div class="model-card card-tilt" data-category="m-power sedans" data-cursor="M3">
+              <div class="card-badge">///M COMPETITION</div>
+              <div class="model-img-wrap">
+                <!-- Replace with your model image if desired -->
+                <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80" alt="BMW M3 Competition Sedan" class="model-img" loading="lazy">
+                <div class="img-glare"></div>
+              </div>
+              <div class="model-body">
+                <div class="model-series">M DIVISION</div>
+                <h3 class="model-name">BMW M3 Competition</h3>
+                <div class="model-specs-row">
+                  <div class="spec-cell">
+                    <span class="spec-num">503</span>
+                    <span class="spec-lbl">HORSEPOWER</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-num">3.4s</span>
+                    <span class="spec-lbl">0-100 KM/H</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-num">650</span>
+                    <span class="spec-lbl">NM TORQUE</span>
+                  </div>
+                </div>
+                <div class="model-pricing">
+                  <span class="price-from">Starting From</span>
+                  <span class="price-val">$76,000 MSRP</span>
+                </div>
+                <div class="model-actions">
+                  <a href="#test-drive" class="btn btn-outline btn-sm magnetic-btn" data-cursor="DRIVE">BOOK DRIVE</a>
+                  <a href="#configurator" class="btn btn-primary btn-sm magnetic-btn" data-cursor="BUILD">BUILD & PRICE</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2: BMW M4 CSL -->
+            <div class="model-card card-tilt" data-category="m-power sedans" data-cursor="M4">
+              <div class="card-badge">CSL LIGHTWEIGHT</div>
+              <div class="model-img-wrap">
+                <!-- Replace with your model image if desired -->
+                <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80" alt="BMW M4 Coupe" class="model-img" loading="lazy">
+                <div class="img-glare"></div>
+              </div>
+              <div class="model-body">
+                <div class="model-series">M DIVISION</div>
+                <h3 class="model-name">BMW M4 CSL Coupe</h3>
+                <div class="model-specs-row">
+                  <div class="spec-cell">
+                    <span class="spec-num">543</span>
+                    <span class="spec-lbl">HORSEPOWER</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-num">3.6s</span>
+                    <span class="spec-lbl">0-100 KM/H</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-num">307</span>
+                    <span class="spec-lbl">KM/H TOP SPEED</span>
+                  </div>
+                </div>
+                <div class="model-pricing">
+                  <span class="price-from">Starting From</span>
+                  <span class="price-val">$139,900 MSRP</span>
+                </div>
+                <div class="model-actions">
+                  <a href="#test-drive" class="btn btn-outline btn-sm magnetic-btn" data-cursor="DRIVE">BOOK DRIVE</a>
+                  <a href="#configurator" class="btn btn-primary btn-sm magnetic-btn" data-cursor="BUILD">BUILD & PRICE</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: BMW i4 M50 -->
+            <div class="model-card card-tilt" data-category="electric m-power sedans" data-cursor="i4">
+              <div class="card-badge electric-badge"><i class="fa-solid fa-bolt"></i> 100% ELECTRIC</div>
+              <div class="model-img-wrap">
+                <!-- Replace with your model image if desired -->
+                <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80" alt="BMW i4 Gran Coupe" class="model-img" loading="lazy">
+                <div class="img-glare"></div>
+              </div>
+              <div class="model-body">
+                <div class="model-series">BMW i DIVISION</div>
+                <h3 class="model-name">BMW i4 M50 Gran Coupe</h3>
+                <div class="model-specs-row">
+                  <div class="spec-cell">
+                    <span class="spec-num">536</span>
+                    <span class="spec-lbl">HORSEPOWER</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-num">3.7s</span>
+                    <span class="spec-lbl">0-100 KM/H</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-num">510</span>
+                    <span class="spec-lbl">KM RANGE (WLTP)</span>
+                  </div>
+                </div>
+                <div class="model-pricing">
+                  <span class="price-from">Starting From</span>
+                  <span class="price-val">$69,700 MSRP</span>
+                </div>
+                <div class="model-actions">
+                  <a href="#test-drive" class="btn btn-outline btn-sm magnetic-btn" data-cursor="DRIVE">BOOK DRIVE</a>
+                  <a href="#configurator" class="btn btn-primary btn-sm magnetic-btn" data-cursor="BUILD">BUILD & PRICE</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4: BMW X5 M Competition -->
+            <div class="model-card card-tilt" data-category="m-power suv" data-cursor="X5M">
+              <div class="card-badge">V8 TWINTURBO</div>
+              <div class="model-img-wrap">
+                <!-- Replace with your model image if desired -->
+                <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80" alt="BMW X5 M Competition" class="model-img" loading="lazy">
+                <div class="img-glare"></div>
+              </div>
+              <div class="model-body">
+                <div class="model-series">SPORTS ACTIVITY VEHICLE</div>
+                <h3 class="model-name">BMW X5 M Competition</h3>
+                <div class="model-specs-row">
+                  <div class="spec-cell">
+                    <span class="spec-num">617</span>
+                    <span class="spec-lbl">HORSEPOWER</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-num">3.7s</span>
+                    <span class="spec-lbl">0-100 KM/H</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-num">750</span>
+                    <span class="spec-lbl">NM TORQUE</span>
+                  </div>
+                </div>
+                <div class="model-pricing">
+                  <span class="price-from">Starting From</span>
+                  <span class="price-val">$122,300 MSRP</span>
+                </div>
+                <div class="model-actions">
+                  <a href="#test-drive" class="btn btn-outline btn-sm magnetic-btn" data-cursor="DRIVE">BOOK DRIVE</a>
+                  <a href="#configurator" class="btn btn-primary btn-sm magnetic-btn" data-cursor="BUILD">BUILD & PRICE</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5: BMW iX M60 -->
+            <div class="model-card card-tilt" data-category="electric suv" data-cursor="iX">
+              <div class="card-badge electric-badge"><i class="fa-solid fa-bolt"></i> DUAL E-MOTOR</div>
+              <div class="model-img-wrap">
+                <!-- Replace with your model image if desired -->
+                <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80" alt="BMW iX Electric SUV" class="model-img" loading="lazy">
+                <div class="img-glare"></div>
+              </div>
+              <div class="model-body">
+                <div class="model-series">BMW i DIVISION</div>
+                <h3 class="model-name">BMW iX M60 Electric</h3>
+                <div class="model-specs-row">
+                  <div class="spec-cell">
+                    <span class="spec-num">610</span>
+                    <span class="spec-lbl">HORSEPOWER</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-num">3.6s</span>
+                    <span class="spec-lbl">0-100 KM/H</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-num">566</span>
+                    <span class="spec-lbl">KM RANGE (WLTP)</span>
+                  </div>
+                </div>
+                <div class="model-pricing">
+                  <span class="price-from">Starting From</span>
+                  <span class="price-val">$111,500 MSRP</span>
+                </div>
+                <div class="model-actions">
+                  <a href="#test-drive" class="btn btn-outline btn-sm magnetic-btn" data-cursor="DRIVE">BOOK DRIVE</a>
+                  <a href="#configurator" class="btn btn-primary btn-sm magnetic-btn" data-cursor="BUILD">BUILD & PRICE</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 6: BMW M2 Coupe -->
+            <div class="model-card card-tilt" data-category="m-power sedans" data-cursor="M2">
+              <div class="card-badge">COMPACT BEAST</div>
+              <div class="model-img-wrap">
+                <!-- Replace with your model image if desired -->
+                <img src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=800&q=80" alt="BMW M2 Coupe" class="model-img" loading="lazy">
+                <div class="img-glare"></div>
+              </div>
+              <div class="model-body">
+                <div class="model-series">M DIVISION</div>
+                <h3 class="model-name">BMW M2 Coupe (Manual/Auto)</h3>
+                <div class="model-specs-row">
+                  <div class="spec-cell">
+                    <span class="spec-num">453</span>
+                    <span class="spec-lbl">HORSEPOWER</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-num">3.9s</span>
+                    <span class="spec-lbl">0-100 KM/H</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-num">RWD</span>
+                    <span class="spec-lbl">DRIVE LAYOUT</span>
+                  </div>
+                </div>
+                <div class="model-pricing">
+                  <span class="price-from">Starting From</span>
+                  <span class="price-val">$63,200 MSRP</span>
+                </div>
+                <div class="model-actions">
+                  <a href="#test-drive" class="btn btn-outline btn-sm magnetic-btn" data-cursor="DRIVE">BOOK DRIVE</a>
+                  <a href="#configurator" class="btn btn-primary btn-sm magnetic-btn" data-cursor="BUILD">BUILD & PRICE</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================
+           SECTION 4: PINNED HORIZONTAL SCROLL GALLERY (M MOTORSPORT)
+           ====================================================== -->
+      <section id="gallery" class="horizontal-scroll-section">
+        
+        <div class="h-sticky-wrap" id="h-sticky">
+          
+          <div class="h-header-bar">
+            <div class="h-title-row">
+              <div class="sub-badge">M HERITAGE</div>
+              <h2>M MOTORSPORT <span class="text-stroke">LINEAGE</span></h2>
+            </div>
+            <div class="h-indicator">
+              <span>DRAG / SCROLL SIDEWAYS</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+
+          <div class="h-track" id="h-track">
+            
+            <!-- Slide 1: M2 -->
+            <div class="h-slide">
+              <div class="h-backdrop-text">M2</div>
+              <div class="h-card">
+                <div class="h-img-frame">
+                  <img src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1000&q=80" alt="BMW M2 Track" loading="lazy">
+                </div>
+                <div class="h-content">
+                  <span class="h-tag">TRACK AGILITY</span>
+                  <h3>THE M2 COUPE</h3>
+                  <p>Short wheelbase, rear-wheel drive, and pure visceral response. The purest driving enthusiast weapon.</p>
+                  <div class="h-specs">
+                    <span><strong>453</strong> HP</span>
+                    <span><strong>3.9s</strong> 0-100</span>
+                    <span><strong>6-SPEED</strong> MANUAL AVAIL.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2: M3 -->
+            <div class="h-slide">
+              <div class="h-backdrop-text">M3</div>
+              <div class="h-card">
+                <div class="h-img-frame">
+                  <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1000&q=80" alt="BMW M3 Track" loading="lazy">
+                </div>
+                <div class="h-content">
+                  <span class="h-tag">THE BENCHMARK</span>
+                  <h3>THE M3 COMPETITION</h3>
+                  <p>Decades of touring car domination packed into a 4-door daily weapon with M xDrive all-wheel traction.</p>
+                  <div class="h-specs">
+                    <span><strong>503</strong> HP</span>
+                    <span><strong>3.4s</strong> 0-100</span>
+                    <span><strong>M xDRIVE</strong> 4WD/2WD</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3: M4 -->
+            <div class="h-slide">
+              <div class="h-backdrop-text">M4</div>
+              <div class="h-card">
+                <div class="h-img-frame">
+                  <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1000&q=80" alt="BMW M4 Track" loading="lazy">
+                </div>
+                <div class="h-content">
+                  <span class="h-tag">AERO PRECISION</span>
+                  <h3>THE M4 COUPE</h3>
+                  <p>Sculpted silhouette with carbon roof and razor-sharp front splitters engineered in the wind tunnel.</p>
+                  <div class="h-specs">
+                    <span><strong>503</strong> HP</span>
+                    <span><strong>3.4s</strong> 0-100</span>
+                    <span><strong>CARBON</strong> ROOF</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 4: M5 -->
+            <div class="h-slide">
+              <div class="h-backdrop-text">M5</div>
+              <div class="h-card">
+                <div class="h-img-frame">
+                  <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1000&q=80" alt="BMW M5 Track" loading="lazy">
+                </div>
+                <div class="h-content">
+                  <span class="h-tag">SUPER-SEDAN</span>
+                  <h3>THE M5 TOURING</h3>
+                  <p>V8 Hybrid M propulsion system delivering hypercar acceleration in an executive package.</p>
+                  <div class="h-specs">
+                    <span><strong>717</strong> HP</span>
+                    <span><strong>3.1s</strong> 0-100</span>
+                    <span><strong>1,000</strong> NM TORQUE</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 5: X5 M -->
+            <div class="h-slide">
+              <div class="h-backdrop-text">X5M</div>
+              <div class="h-card">
+                <div class="h-img-frame">
+                  <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1000&q=80" alt="BMW X5 M Track" loading="lazy">
+                </div>
+                <div class="h-content">
+                  <span class="h-tag">BRUTE FORCE</span>
+                  <h3>THE X5 M COMPETITION</h3>
+                  <p>Defying physics with massive 325-width rear rubber and an active differential that bends corners at will.</p>
+                  <div class="h-specs">
+                    <span><strong>617</strong> HP</span>
+                    <span><strong>3.7s</strong> 0-100</span>
+                    <span><strong>48V MILD</strong> HYBRID</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================
+           SECTION 5: M PERFORMANCE & TACHOMETER / START ENGINE
+           ====================================================== -->
+      <section id="m-performance" class="section m-perf-section">
+        <div class="carbon-bg"></div>
+        <div class="site-container">
+          
+          <div class="perf-layout">
+            <div class="perf-info">
+              <div class="sub-badge">///M MOTORSPORT EXPERIENCE</div>
+              <h2 class="section-title split-text">
+                FEEL THE <span class="text-accent">REDLINE</span>
+              </h2>
+              <p class="perf-desc">
+                From the Nürburgring straightaways to the open highway, BMW M is the obsession of mechanical perfection. Test the sound and feel of Bavarian engineering below.
+              </p>
+
+              <!-- Interactive Engine Start Button with Web Audio Synthesis -->
+              <div class="engine-start-container">
+                <button id="engine-start-btn" class="engine-start-btn" data-cursor="FIRE">
+                  <div class="engine-btn-ring"></div>
+                  <div class="engine-btn-inner">
+                    <i class="fa-solid fa-power-off"></i>
+                    <span>START</span>
+                    <small>ENGINE</small>
+                  </div>
+                </button>
+                <div class="engine-hint">
+                  <strong>CLICK TO REV ENGINE</strong>
+                  <span>Authentic BMW M TwinPower Turbo exhaust roar & screen shockwave</span>
+                </div>
+              </div>
+
+              <!-- Animated Counter Row -->
+              <div class="stats-counter-row">
+                <div class="counter-box">
+                  <div class="counter-num" data-target="305">0</div>
+                  <div class="counter-unit">KM/H</div>
+                  <div class="counter-lbl">TOP TRACK SPEED</div>
+                </div>
+                <div class="counter-box">
+                  <div class="counter-num" data-target="7250">0</div>
+                  <div class="counter-unit">RPM</div>
+                  <div class="counter-lbl">MAX ENGINE REV</div>
+                </div>
+                <div class="counter-box">
+                  <div class="counter-num" data-target="24">0</div>
+                  <div class="counter-unit">HRS</div>
+                  <div class="counter-lbl">NÜRBURGRING TRIUMPHS</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Tachometer SVG Gauge -->
+            <div class="perf-gauge-wrap">
+              <div class="gauge-card card-tilt">
+                <div class="gauge-head">
+                  <span>M TELEMETRY CLUSTER</span>
+                  <span class="m-stripe-icon"></span>
+                </div>
+                
+                <div class="svg-gauge-box">
+                  <svg viewBox="0 0 300 200" class="tachometer-svg">
+                    <!-- Gauge Outer Arc Track -->
+                    <path d="M 40 170 A 110 110 0 1 1 260 170" fill="none" stroke="#222" stroke-width="14" stroke-linecap="round"/>
+                    
+                    <!-- Gauge Colored Active Track -->
+                    <path id="gauge-fill-path" d="M 40 170 A 110 110 0 1 1 260 170" fill="none" stroke="url(#m-gradient)" stroke-width="14" stroke-linecap="round" stroke-dasharray="380" stroke-dashoffset="380"/>
+                    
+                    <!-- Redline Arc Indicator -->
+                    <path d="M 215 75 A 110 110 0 0 1 260 170" fill="none" stroke="#E4002B" stroke-width="14" stroke-linecap="round" opacity="0.4"/>
+                    
+                    <!-- Ticks & Numerals -->
+                    <text x="35" y="195" font-size="12" fill="#888">0</text>
+                    <text x="50" y="105" font-size="12" fill="#888">2</text>
+                    <text x="100" y="55" font-size="12" fill="#888">4</text>
+                    <text x="185" y="55" font-size="12" fill="#888">6</text>
+                    <text x="240" y="105" font-size="12" fill="#E4002B">8</text>
+                    
+                    <!-- Center Pivot -->
+                    <circle cx="150" cy="170" r="14" fill="#111" stroke="#38bdf8" stroke-width="3"/>
+                    
+                    <!-- Needle -->
+                    <line id="gauge-needle" x1="150" y1="170" x2="60" y2="170" stroke="#E4002B" stroke-width="4" stroke-linecap="round"/>
+                    
+                    <defs>
+                      <linearGradient id="m-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#81C4FF"/>
+                        <stop offset="50%" stop-color="#0066B1"/>
+                        <stop offset="100%" stop-color="#E4002B"/>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+
+                  <div class="gauge-digital-readout">
+                    <span id="gauge-rpm-val">1,200</span>
+                    <small>RPM</small>
+                  </div>
+                </div>
+
+                <div class="gauge-footer">
+                  <div class="g-status"><span class="dot-active"></span> READY STATE</div>
+                  <div class="g-mode">M DYNAMIC MODE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================
+           SECTION 6: ELECTRIC / BMW i (RANGE & BATTERY FILL)
+           ====================================================== -->
+      <section id="electric" class="section electric-section">
+        <div class="electric-ambient-glow"></div>
+        <div class="site-container">
+          
+          <div class="electric-grid">
+            <div class="electric-content">
+              <div class="sub-badge electric-sub"><i class="fa-solid fa-bolt"></i> BMW i ELECTRIFICATION</div>
+              <h2 class="section-title split-text">
+                ZERO EMISSIONS.<br>
+                <span class="text-electric">100% ADRENALINE.</span>
+              </h2>
+              <p class="section-subtitle">
+                Electrification engineered by the same minds that won the DTM Championship. Experience instantaneous torque delivery without a whisper of lag.
+              </p>
+
+              <!-- Interactive Battery & Range Telemetry Simulator -->
+              <div class="battery-sim-box">
+                <div class="battery-sim-head">
+                  <span>BATTERY CAPACITY TELEMETRY</span>
+                  <span id="battery-percent-display">85% CHARGED</span>
+                </div>
+                
+                <div class="battery-bar-housing">
+                  <div class="battery-fill-level" id="battery-fill" style="width: 85%;"></div>
+                  <div class="battery-cells-divider">
+                    <span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                </div>
+
+                <div class="battery-stats-row">
+                  <div>
+                    <span class="b-lbl">ESTIMATED RANGE</span>
+                    <strong class="b-val" id="range-val">580 KM</strong>
+                  </div>
+                  <div>
+                    <span class="b-lbl">CHARGING TIME (10-80%)</span>
+                    <strong class="b-val">18 MINS @ 250 kW</strong>
+                  </div>
+                  <div>
+                    <span class="b-lbl">REGENERATION BRAKING</span>
+                    <strong class="b-val">M ADAPTIVE 195 kW</strong>
+                  </div>
+                </div>
+
+                <div class="battery-slider-row">
+                  <label for="charge-slider">Simulate Battery Level:</label>
+                  <input type="range" id="charge-slider" min="10" max="100" value="85" class="charge-slider" data-cursor="DRAG">
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Electric Tech Visualization -->
+            <div class="electric-visual card-tilt">
+              <div class="e-glass-card">
+                <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=900&q=80" alt="BMW Electric Fleet" class="e-car-img" loading="lazy">
+                <div class="e-specs-floating">
+                  <div class="e-chip">
+                    <i class="fa-solid fa-plug-circle-bolt"></i>
+                    <span>DC ULTRA-FAST READY</span>
+                  </div>
+                  <div class="e-chip">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    <span>M SOUND ELECTRIC BY HANS ZIMMER</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================
+           SECTION 7: CONFIGURATOR TEASER (COLOR & WHEELS)
+           ====================================================== -->
+      <section id="configurator" class="section config-section">
+        <div class="site-container">
+          
+          <div class="section-head text-center">
+            <div class="sub-badge">M PERSONAL STUDIO</div>
+            <h2 class="section-title split-text">
+              TAILOR YOUR <span class="text-accent">BEAST</span>
+            </h2>
+            <p class="section-subtitle">
+              Choose your exterior bespoke paint finish and forged lightweight M alloy wheel aerodynamics.
+            </p>
+          </div>
+
+          <div class="config-stage">
+            <!-- Dynamic Preview Stage -->
+            <div class="config-car-display">
+              <!-- Background Ambient Paint Reflection -->
+              <div id="paint-glow" class="paint-glow" style="background: radial-gradient(circle, rgba(28, 105, 212, 0.35) 0%, transparent 70%);"></div>
+              
+              <!-- Car Image with Paint Filter Layer -->
+              <div class="config-car-frame">
+                <img id="config-car-img" src="frames/frame_0001.png" alt="BMW Configurator Preview" class="config-car-img">
+                <div id="paint-tint" class="paint-tint"></div>
+              </div>
+
+              <!-- Live Configuration Specs Tag -->
+              <div class="config-live-tag">
+                <span id="config-color-name">ISLE OF MAN GREEN</span>
+                <span id="config-wheel-name">20" M DOUBLE-SPOKE FORGED 826M</span>
+              </div>
+            </div>
+
+            <!-- Controls Panel -->
+            <div class="config-panel">
+              
+              <!-- Paint Selector -->
+              <div class="config-group">
+                <span class="config-label">1. EXTERIOR FINISH</span>
+                <div class="swatches-row">
+                  <button class="swatch-btn active" data-color="green" data-name="ISLE OF MAN GREEN" data-tint="rgba(16, 185, 129, 0.25)" style="background: #10b981;" title="Isle of Man Green" data-cursor="COLOR"></button>
+                  <button class="swatch-btn" data-color="blue" data-name="PORTIMAO BLUE METALLIC" data-tint="rgba(28, 105, 212, 0.3)" style="background: #1c69d4;" title="Portimao Blue" data-cursor="COLOR"></button>
+                  <button class="swatch-btn" data-color="red" data-name="TORONTO RED METALLIC" data-tint="rgba(228, 0, 43, 0.3)" style="background: #e4002b;" title="Toronto Red" data-cursor="COLOR"></button>
+                  <button class="swatch-btn" data-color="black" data-name="FROZEN DEEP CARBON BLACK" data-tint="rgba(0, 0, 0, 0.5)" style="background: #18181b;" title="Frozen Black" data-cursor="COLOR"></button>
+                  <button class="swatch-btn" data-color="white" data-name="ALPINE WHITE SOLID" data-tint="rgba(255, 255, 255, 0.15)" style="background: #f8fafc;" title="Alpine White" data-cursor="COLOR"></button>
+                  <button class="swatch-btn" data-color="yellow" data-name="SAO PAULO YELLOW" data-tint="rgba(234, 179, 8, 0.3)" style="background: #eab308;" title="Sao Paulo Yellow" data-cursor="COLOR"></button>
+                </div>
+              </div>
+
+              <!-- Wheels Selector -->
+              <div class="config-group">
+                <span class="config-label">2. WHEEL STYLE</span>
+                <div class="wheels-selector-row">
+                  <button class="wheel-btn active" data-wheel="826M" data-name="20\" M DOUBLE-SPOKE 826M" data-cursor="WHEEL">
+                    <span class="w-name">826M FORGED</span>
+                    <span class="w-desc">Bicolor Jet Black</span>
+                  </button>
+                  <button class="wheel-btn" data-wheel="963M" data-name="21\" M PERFORMANCE 963M" data-cursor="WHEEL">
+                    <span class="w-name">963M TRACK</span>
+                    <span class="w-desc">Frozen Bronze Metallic</span>
+                  </button>
+                  <button class="wheel-btn" data-wheel="1000M" data-name="20\"/21\" GOLD BRONZE 1000M" data-cursor="WHEEL">
+                    <span class="w-name">1000M AERO</span>
+                    <span class="w-desc">Gold Bronze Anodized</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="config-cta-row">
+                <a href="#test-drive" class="btn btn-primary magnetic-btn" data-cursor="ORDER">
+                  <span>FINALIZE & RESERVE</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================
+           SECTION 8: WHY BUY FROM US (BENEFITS & GUARANTEES)
+           ====================================================== -->
+      <section class="section benefits-section">
+        <div class="site-container">
+          
+          <div class="section-head text-center">
+            <div class="sub-badge">THE BAVARIA ADVANTAGE</div>
+            <h2 class="section-title split-text">
+              WHY OWN WITH <span class="text-accent">US</span>
+            </h2>
+          </div>
+
+          <div class="benefits-grid">
+            <div class="benefit-card card-tilt" data-cursor="SERVICE">
+              <div class="b-icon-wrap"><i class="fa-solid fa-certificate"></i></div>
+              <h3>BMW Certified Master Techs</h3>
+              <p>Every vehicle is serviced by factory-certified technicians using genuine BMW M original components and diagnostic tools.</p>
+            </div>
+
+            <div class="benefit-card card-tilt" data-cursor="WARRANTY">
+              <div class="b-icon-wrap"><i class="fa-solid fa-shield-cat"></i></div>
+              <h3>5-Year M Track Warranty</h3>
+              <p>Comprehensive bumper-to-bumper protection that explicitly includes track-day engine and transmission coverage.</p>
+            </div>
+
+            <div class="benefit-card card-tilt" data-cursor="FINANCE">
+              <div class="b-icon-wrap"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+              <h3>BMW Financial Services</h3>
+              <p>Custom tailored lease programs, competitive APR financing, and guaranteed trade-in valuations with fast approval.</p>
+            </div>
+
+            <div class="benefit-card card-tilt" data-cursor="VIP">
+              <div class="b-icon-wrap"><i class="fa-solid fa-flag-checkered"></i></div>
+              <h3>Complimentary Track Days</h3>
+              <p>Every M purchase comes with an invitation to the BMW M Performance Driving Academy with professional racing drivers.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================
+           SECTION 9: DRAGGABLE TESTIMONIALS SLIDER
+           ====================================================== -->
+      <section class="section testimonials-section">
+        <div class="site-container">
+          
+          <div class="section-head text-center">
+            <div class="sub-badge">OWNER EXPERIENCES</div>
+            <h2 class="section-title split-text">
+              VOICES OF THE <span class="text-accent">M COMMUNITY</span>
+            </h2>
+          </div>
+
+          <!-- Draggable slider container -->
+          <div class="testimonial-slider-wrap" id="t-slider-wrap" data-cursor="DRAG">
+            <div class="testimonial-track" id="t-track">
+              
+              <!-- Review 1 -->
+              <div class="testimonial-card">
+                <div class="t-stars">★★★★★</div>
+                <p class="t-quote">“The delivery experience was pure motorsport theater. Driving my M3 Competition off the showroom floor with the custom telemetry setup took my breath away.”</p>
+                <div class="t-author">
+                  <strong>Marcus Vance</strong>
+                  <span>M3 Competition Owner • Track Driver</span>
+                </div>
+              </div>
+
+              <!-- Review 2 -->
+              <div class="testimonial-card">
+                <div class="t-stars">★★★★★</div>
+                <p class="t-quote">“The transition to the i4 M50 electric was seamless. The instant torque makes morning commutes feel like launch control on a drag strip.”</p>
+                <div class="t-author">
+                  <strong>Elena Rostova</strong>
+                  <span>i4 M50 Gran Coupe Owner</span>
+                </div>
+              </div>
+
+              <!-- Review 3 -->
+              <div class="testimonial-card">
+                <div class="t-stars">★★★★★</div>
+                <p class="t-quote">“Their M Certified master service team handles my car with surgical care. Best dealership and track community in the country hands down.”</p>
+                <div class="t-author">
+                  <strong>David Chen</strong>
+                  <span>M4 CSL Owner • 6 Track Days</span>
+                </div>
+              </div>
+
+              <!-- Review 4 -->
+              <div class="testimonial-card">
+                <div class="t-stars">★★★★★</div>
+                <p class="t-quote">“The exploded 3D demonstration was what hooked me, but feeling the 617 HP twin-turbo V8 on the test drive sealed the deal in 30 seconds.”</p>
+                <div class="t-author">
+                  <strong>Alexander Wright</strong>
+                  <span>X5 M Competition Owner</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================
+           SECTION 10: BOOK A TEST DRIVE FORM & CONFETTI
+           ====================================================== -->
+      <section id="test-drive" class="section drive-section">
+        <div class="site-container">
+          
+          <div class="drive-card">
+            <div class="drive-card-left">
+              <div class="sub-badge">UNLEASH THE REVS</div>
+              <h2 class="section-title">
+                TAKE THE <span class="text-accent">WHEEL</span>
+              </h2>
+              <p class="drive-desc">
+                Experience track-level G-forces firsthand. Schedule an exclusive 45-minute private test drive on dynamic country curves with our M Product Specialists.
+              </p>
+              
+              <div class="drive-perks">
+                <div class="perk"><i class="fa-solid fa-check"></i> Private VIP highway route</div>
+                <div class="perk"><i class="fa-solid fa-check"></i> Launch control acceleration demonstration</div>
+                <div class="perk"><i class="fa-solid fa-check"></i> No sales pressure, pure driving enthusiast focus</div>
+              </div>
+            </div>
+
+            <div class="drive-card-right">
+              <form id="drive-form" class="drive-form" novalidate>
+                
+                <div class="form-row">
+                  <div class="form-field">
+                    <input type="text" id="drive-name" required placeholder=" " class="form-input">
+                    <label for="drive-name" class="form-label">Full Name</label>
+                  </div>
+                  <div class="form-field">
+                    <input type="email" id="drive-email" required placeholder=" " class="form-input">
+                    <label for="drive-email" class="form-label">Email Address</label>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-field">
+                    <input type="tel" id="drive-phone" required placeholder=" " class="form-input">
+                    <label for="drive-phone" class="form-label">Phone Number</label>
+                  </div>
+                  <div class="form-field select-field">
+                    <select id="drive-model" required class="form-input form-select">
+                      <option value="" disabled selected hidden></option>
+                      <option value="m3">BMW M3 Competition Sedan</option>
+                      <option value="m4">BMW M4 CSL Coupe</option>
+                      <option value="m2">BMW M2 Coupe (Manual)</option>
+                      <option value="x5m">BMW X5 M Competition</option>
+                      <option value="i4">BMW i4 M50 Electric</option>
+                      <option value="ix">BMW iX M60 Electric</option>
+                    </select>
+                    <label for="drive-model" class="form-label">Select Model</label>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <input type="date" id="drive-date" required placeholder=" " class="form-input">
+                  <label for="drive-date" class="form-label">Preferred Date</label>
+                </div>
+
+                <button type="submit" id="drive-submit-btn" class="btn btn-primary btn-block magnetic-btn" data-cursor="CONFIRM">
+                  <span class="btn-text">RESERVE MY TEST DRIVE</span>
+                  <i class="fa-solid fa-flag-checkered"></i>
+                </button>
+
+                <div id="form-feedback" class="form-feedback"></div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================
+           SECTION 11: FOOTER & HUGE BMW WORDMARK
+           ====================================================== -->
+      <footer class="footer">
+        <div class="site-container">
+          
+          <!-- Massive Outlined BMW Wordmark with Color-Fill Hover Effect -->
+          <div class="huge-wordmark-wrap" data-cursor="BMW">
+            <h1 class="huge-bmw-wordmark">BMW</h1>
+          </div>
+
+          <div class="footer-grid">
+            <div class="footer-col brand-col">
+              <div class="f-brand">
+                <svg class="bmw-roundel" viewBox="0 0 100 100" width="36" height="36">
+                  <circle cx="50" cy="50" r="48" fill="#0A0A0A" stroke="#FFFFFF" stroke-width="2.5"/>
+                  <circle cx="50" cy="50" r="32" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+                  <path d="M50 18 A32 32 0 0 1 82 50 L50 50 Z" fill="#0066B1"/>
+                  <path d="M82 50 A32 32 0 0 1 50 82 L50 50 Z" fill="#FFFFFF"/>
+                  <path d="M50 82 A32 32 0 0 1 18 50 L50 50 Z" fill="#0066B1"/>
+                  <path d="M18 50 A32 32 0 0 1 50 18 L50 50 Z" fill="#FFFFFF"/>
+                  <text x="50" y="14" font-size="8.5" font-family="'Barlow Condensed', sans-serif" font-weight="900" fill="#FFFFFF" text-anchor="middle">BMW</text>
+                </svg>
+                <span>BAVARIA MOTORS RETAIL</span>
+              </div>
+              <p class="f-desc">The official independent retail partner for BMW M and BMW i high performance vehicles.</p>
+              <div class="m-stripes-footer">
+                <span class="m-stripe light-blue"></span>
+                <span class="m-stripe dark-blue"></span>
+                <span class="m-stripe red"></span>
+              </div>
+            </div>
+
+            <div class="footer-col">
+              <h4>M VEHICLES</h4>
+              <ul>
+                <li><a href="#models">BMW M2 Coupe</a></li>
+                <li><a href="#models">BMW M3 Competition</a></li>
+                <li><a href="#models">BMW M4 Coupe</a></li>
+                <li><a href="#models">BMW M5 Touring</a></li>
+                <li><a href="#models">BMW X5 M Competition</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4>INNOVATION</h4>
+              <ul>
+                <li><a href="#electric">BMW i Electromobility</a></li>
+                <li><a href="#engineered">Carbon Core Monocoque</a></li>
+                <li><a href="#configurator">Bespoke Configurator</a></li>
+                <li><a href="#engineered">M Carbon-Ceramics</a></li>
+                <li><a href="#engineered">Hans Zimmer Soundscapes</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4>M VIP NEWSLETTER</h4>
+              <p>Receive exclusive allocation invites and Nürburgring track-day passes.</p>
+              <form id="newsletter-form" class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed to M VIP Dispatch!');">
+                <input type="email" placeholder="Enter your email" required class="nl-input">
+                <button type="submit" class="nl-btn" aria-label="Subscribe" data-cursor="JOIN"><i class="fa-solid fa-arrow-right"></i></button>
+              </form>
+              <div class="social-row">
+                <a href="#" class="social-link" aria-label="Instagram" data-cursor="IG"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="social-link" aria-label="YouTube" data-cursor="YT"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="social-link" aria-label="Twitter/X" data-cursor="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" class="social-link" aria-label="TikTok" data-cursor="TIKTOK"><i class="fa-brands fa-tiktok"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-bottom">
+            <p class="brand-disclaimer">
+              Independent BMW retailer website. BMW and the BMW logo are trademarks of BMW AG. All vehicle specifications and images are for creative demonstration.
+            </p>
+            
+            <!-- Rocket / Gear Shift Back to Top Button -->
+            <button id="back-to-top" class="back-to-top-btn" title="Shift Back to Top" data-cursor="TOP">
+              <span class="gear-icon">R</span>
+              <span class="btn-label">SHIFT TO TOP</span>
+              <i class="fa-solid fa-arrow-up"></i>
+            </button>
+          </div>
+
+        </div>
+      </footer>
+
+    </main>
+
+    <!-- STICKY FLOATING QUICK TEST-DRIVE PILL (BOTTOM-RIGHT) -->
+    <a href="#test-drive" class="sticky-drive-pill" id="sticky-drive-pill" data-cursor="DRIVE">
+      <span class="pill-dot"></span>
+      <span class="pill-text">BOOK TEST DRIVE</span>
+      <i class="fa-solid fa-chevron-right"></i>
+    </a>
+
+  </div> <!-- /#app-root -->
+
+  <!-- ========================================================
+       EMAIL CONFIRMATION MODAL (VIP PASS PREVIEW)
+       ======================================================== -->
+  <div id="email-confirm-modal" class="email-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="email-modal-window">
+      
+      <!-- Window Title Bar -->
+      <div class="modal-top-bar">
+        <div class="modal-title-wrap">
+          <div class="email-indicator-dot"></div>
+          <span id="modal-title" class="modal-title">INCOMING DISPATCH: VIP TEST DRIVE CONFIRMATION</span>
+        </div>
+        <button id="close-modal-btn" class="modal-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+
+      <!-- Email Envelope Meta Header -->
+      <div class="email-meta-header">
+        <div class="meta-row">
+          <span class="meta-label">FROM:</span>
+          <span class="meta-value">BMW M Bavaria Performance &lt;allocations@bmw-m-motorsport.com&gt;</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">TO:</span>
+          <span id="modal-recipient-email" class="meta-value highlight-email">customer@domain.com</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">SUBJECT:</span>
+          <span id="modal-subject-line" class="meta-value">///M CONFIRMED: Your BMW Test Drive Allocation Pass</span>
+        </div>
+      </div>
+
+      <!-- Scrollable Email Letterhead & Pass Body -->
+      <div class="modal-email-body" id="modal-email-content">
+        <!-- Rendered dynamically by script.js -->
+      </div>
+
+      <!-- Modal Bottom Actions Bar -->
+      <div class="modal-footer-actions">
+        <div class="modal-footer-hint">
+          <i class="fa-solid fa-envelope-circle-check"></i>
+          <span>A copy has been logged to your customer profile & inbox</span>
+        </div>
+        <div class="modal-buttons-group">
+          <a id="btn-gmail-web" href="#" target="_blank" class="btn btn-primary btn-sm" title="Open and send directly via your Gmail">
+            <i class="fa-brands fa-google"></i>
+            <span>OPEN IN GMAIL</span>
+          </a>
+          <a id="btn-download-eml" href="/test_drive_confirmation.eml" download="bmw_m_test_drive_pass.eml" class="btn btn-outline btn-sm" title="Open as real email in Outlook / Windows Mail">
+            <i class="fa-solid fa-file-arrow-down"></i>
+            <span>DOWNLOAD .EML</span>
+          </a>
+          <a id="btn-open-email-tab" href="/last_confirmation_email.html" target="_blank" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>FULL VIEW</span>
+          </a>
+          <button id="btn-done-modal" class="btn btn-outline btn-sm">
+            <span>CLOSE</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================
+       SCRIPTS: LENIS, GSAP, SCROLLTRIGGER, FLIP & CONFETTI
+       ======================================================== -->
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+  
+  <!-- GSAP Core & Plugins -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+  
+  <!-- Canvas Confetti for Form Victory -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Main Application Script -->
+  <script src="script.js"></script>
+</body>
+</html>
